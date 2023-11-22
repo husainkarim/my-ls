@@ -1,6 +1,9 @@
 package pkg
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func RecursiveList(list []FileInfo, dir, root, file string, time, reverse, hidden, index, longprint, recursive bool, f func(l []FileInfo, f string, h, i bool)) {
 	fmt.Printf("%s:\n", root)                         // print the root of file
@@ -10,6 +13,9 @@ func RecursiveList(list []FileInfo, dir, root, file string, time, reverse, hidde
 	for i := range dircontain {
 		l := GetFilesInfo(dircontain[i], maindir) // get new list for the new root
 		newroot := root + "/" + dirnames[i]       // new printed root
+		if strings.HasSuffix(root, "/") {
+			newroot = root + dirnames[i]
+		}
 		fmt.Println()
 		// put the new list into the recursive with new file and root
 		Apply(l, dircontain[i], newroot, file, time, reverse, hidden, index, longprint, recursive)

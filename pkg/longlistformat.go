@@ -29,13 +29,13 @@ func LongListFormat(list []FileInfo, file string, hidden, index bool) {
 			if !hidden { // ignore hidden file
 				if !strings.HasPrefix(entry.Name, ".") {
 					if index {
-						fmt.Printf("%d ", entry.Index)
+						fmt.Printf("%6d ", entry.Index)
 					}
 					PrintLongList(entry)
 				}
 			} else { // print all file
 				if index {
-					fmt.Printf("%d ", entry.Index)
+					fmt.Printf("%6d ", entry.Index)
 				}
 				PrintLongList(entry)
 			}

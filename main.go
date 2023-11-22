@@ -16,44 +16,40 @@ func main() {
 	args := os.Args[1:] // get the argument
 	flag := ""          // default
 	file := ""          // default
-	if len(args) > 2 {  // if args length more than 2 error
-		fmt.Println(args)
-		fmt.Println("Error: argument length givin not supported it should be between 0 and 2 only!.")
-		os.Exit(1)
-	} else if len(args) != 0 { // if length not 0 get the flag & file
-		if strings.HasPrefix(args[0], "-") && len(args[0]) > 1 { // '-' mean the argument is flag
-			flag = args[0]
-			if !pkg.CheckFlag(flag) { // check the flag is supported or not
-				fmt.Println("Error: the flag not supported!")
-				os.Exit(1)
-			}
-			args = args[1:] // remove the flag from list
-		}
-		if len(args) > 0 { // get the file name
-			file = args[0]
-			if strings.HasPrefix(file, "/") { // if the file stat with '/' this mean new directory
-				err = os.Chdir(file)
-				if err != nil {
-					fmt.Println("can't fund this dir!")
+	modify := false
+	newdir := ""
+	cur := ""
+	if len(args) != 0 { // if length not 0 get the flag & file
+		for _, s := range args {
+			if strings.HasPrefix(s, "-") && len(s) > 1 { // '-' mean the argument is flag
+				flag += s
+				if !pkg.CheckFlag(flag) { // check the flag is supported or not
+					fmt.Println("Error: the flag not supported!")
 					os.Exit(1)
 				}
-				currentDir, err = os.Getwd()
-				if err != nil {
-					fmt.Println("Error getting current directory:", err)
-					return
-				}
-			} else { // check if it file or directory
-				check, err := pkg.CheckFileNameDir(file, currentDir)
-				if err != nil { // handle error
-					fmt.Println(err)
-					os.Exit(1)
-				}
-				if check { // if directory add it to root and empty the file
-					currentDir += "/" + file
+			} else { // get the file name
+				file = s
+				if strings.HasPrefix(file, "/") { // if the file stat with '/' this mean new directory
+					currentDir = file + "/"
+					modify = true
 					file = ""
+				} else { // check if it file or directory
+					check, err := pkg.CheckFileNameDir(file, currentDir)
+					if err != nil { // handle error
+						fmt.Println(err)
+						file = ""
+					}
+					if check { // if directory add it to root and empty the file
+						cur = file
+						newdir = currentDir + "/" + file
+						file = ""
+					}
 				}
 			}
 		}
+	}
+	if newdir != "" {
+		currentDir = newdir
 	}
 	// default value for the flags
 	hidden := false
@@ -63,6 +59,11 @@ func main() {
 	time := false
 	reverse := false
 	root := "."
+	if modify {
+		root = currentDir
+	} else if cur != "" {
+		root = cur
+	}
 	// get the list
 	var empty pkg.FileInfo
 	var listOfFile []pkg.FileInfo = pkg.GetFilesInfo(currentDir, empty)
