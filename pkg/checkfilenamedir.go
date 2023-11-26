@@ -15,10 +15,10 @@ func CheckFileNameDir(file, dir string) (bool, error) {
 		fmt.Println("Error reading directory:", err)
 		return false, err
 	}
-	file = strings.TrimSuffix(file, "/")
+	filename := strings.TrimSuffix(file, "/")
 	for _, v := range files {
 		name := v.Name()
-		if file == name { // if name == givin file name
+		if filename == name { // if name == givin file name
 			if v.IsDir() { // if the file is directory return true
 				return true, nil
 			} else { // if the file is file name return false

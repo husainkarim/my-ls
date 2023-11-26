@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// struct to store all information need for the files
 type FileInfo struct {
 	Name    string
 	Dir     bool
@@ -15,4 +16,12 @@ type FileInfo struct {
 	Size    int64
 	ModTime time.Time
 	Index   int
+}
+
+// struct to store the file and the path for it with the necessary information
+type Dir struct {
+	Name  string
+	Path  string
+	File  string
+	IsDir bool
 }

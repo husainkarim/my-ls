@@ -15,9 +15,17 @@ func Apply(list []FileInfo, dir, root, file string, time, reverse, hidden, index
 		LongListFormat(list, file, hidden, index)
 	}
 	if !longprint && recursive { // normal print + recursive
-		RecursiveList(list, dir, root, file, time, reverse, hidden, index, longprint, recursive, PrintList)
+		if file != "" {
+			PrintList(list, file, hidden, index)
+		} else {
+			RecursiveList(list, dir, root, file, time, reverse, hidden, index, longprint, recursive, PrintList)
+		}
 	}
 	if longprint && recursive { // long print + recursive
-		RecursiveList(list, dir, root, file, time, reverse, hidden, index, longprint, recursive, LongListFormat)
+		if file != "" {
+			LongListFormat(list, file, hidden, index)
+		} else {
+			RecursiveList(list, dir, root, file, time, reverse, hidden, index, longprint, recursive, LongListFormat)
+		}
 	}
 }

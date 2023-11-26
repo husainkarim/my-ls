@@ -12,13 +12,13 @@ func PrintList(list []FileInfo, file string, hidden, index bool) {
 				if index { // print index
 					fmt.Printf("%6d ", entry.Index)
 				}
-				fmt.Printf(entry.Name) // print file
+				color := SelectColor(entry.Mode.String())
+				name := color + entry.Name + "\033[0m"
+				fmt.Printf("%s", name) // print file
 			}
 		} else { // there is no specific file
-			name := entry.Name
-			if entry.Dir { // if directory color blue
-				name = "\033[1;34m" + entry.Name + "\033[0m"
-			}
+			color := SelectColor(entry.Mode.String())
+			name := color + entry.Name + "\033[0m"
 			if !strings.HasPrefix(entry.Name, ".") { // print all file without hidden file
 				if index {
 					fmt.Printf("%6d ", entry.Index)
