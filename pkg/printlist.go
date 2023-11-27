@@ -103,5 +103,5 @@ func PrintList(list []FileInfo, file string, hidden, index bool) {
 			fmt.Println()
 		}
 	}
-	//fmt.Println()
+	fmt.Println()
 }
