@@ -7,8 +7,6 @@ import (
 )
 
 func PrintList(list []FileInfo, file string, hidden, index bool) {
-	// fileCount := 0
-	// ////
 	// for i, entry := range list {
 	// 	if file != "" { // there is specific file
 	// 		if file == entry.Name {
@@ -18,7 +16,6 @@ func PrintList(list []FileInfo, file string, hidden, index bool) {
 	// 			color := SelectColor(entry.Mode.String())
 	// 			name := color + entry.Name + "\033[0m"
 	// 			fmt.Printf("%s", name) // print file
-	// 			fileCount++
 	// 		}
 	// 	} else { // there is no specific file
 	// 		color := SelectColor(entry.Mode.String())
@@ -31,13 +28,6 @@ func PrintList(list []FileInfo, file string, hidden, index bool) {
 	// 			// if i != len(list)-1 {
 	// 			// 	fmt.Print("  ")
 	// 			// }
-	// 			fileCount++
-	// 			if fileCount%4 == 0 && i != len(list)-1 {
-	// 				fmt.Println()
-	// 				fileCount = 0
-	// 			} else {
-	// 				fmt.Print(" ")
-	// 			}
 	// 		} else if hidden { // print all file
 	// 			if index {
 	// 				fmt.Printf("%d ", entry.Index)
@@ -46,32 +36,27 @@ func PrintList(list []FileInfo, file string, hidden, index bool) {
 	// 			// if i != len(list)-1 {
 	// 			// 	fmt.Print("  ")
 	// 			// }
-	// 			if fileCount%4 == 0 && i != len(list)-1 {
-	// 				fmt.Println()
-	// 				fileCount = 0
-	// 			} else {
-	// 				fmt.Print(" ")
-	// 			}
 	// 		}
 	// 	}
 	// }
-
-	// if fileCount%4 != 0 {
-	// 	fmt.Println()
-	// }
 	// fmt.Println()
+
+	////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////
 	fileNames := []string{}
 	for _, entry := range list {
+		color := SelectColor(entry.Mode.String())
+		name := color + entry.Name + "\033[0m"
 		if file != "" && file == entry.Name {
 			if index {
-				fileNames = append(fileNames, fmt.Sprintf("%6d %s", entry.Index, entry.Name))
+				fileNames = append(fileNames, fmt.Sprintf("%6d %s", entry.Index, name))
 			} else {
-				fileNames = append(fileNames, entry.Name)
+				fileNames = append(fileNames, name)
 			}
 		} else if file == "" {
 			if !strings.HasPrefix(entry.Name, ".") || hidden {
 				if index {
-					fileNames = append(fileNames, fmt.Sprintf("%6d %s", entry.Index, entry.Name))
+					fileNames = append(fileNames, fmt.Sprintf("%6d %s", entry.Index, name))
 				} else {
 					fileNames = append(fileNames, entry.Name)
 				}
