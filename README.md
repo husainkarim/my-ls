@@ -20,12 +20,20 @@ This project utilizes the Go programming language to implement the ls command wi
 ```bash
 go run main.go [options] [path]
 ```
+or
+```bash
+./my-ls [options] [path]
+```
 
 where `options` is a combination of the supported flags, and `path` is the directory or file to list. For example, to list the contents of the current directory in long format, including hidden files, sorted by modification time, you would use the following command:
 
-bash
-go run main.go -l -a -t
-
+```bash
+go run main.go -l -a pkg
+```
+or
+```bash
+./my-ls -l -a pkg
+```
 
 ## Implementation
 
