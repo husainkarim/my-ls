@@ -8,7 +8,7 @@ import (
 )
 
 // check all file name givin in the argument
-func CheckFileNameDir(file, dir string) (bool, error) {
+func CheckFileNameDir(run, file, dir string) (bool, error) {
 	// read all file in the directory
 	files, err := os.ReadDir(dir)
 	if err != nil {
@@ -27,5 +27,5 @@ func CheckFileNameDir(file, dir string) (bool, error) {
 		}
 	}
 	// if file not found in the directory
-	return false, errors.New("./my-ls: cannot access '" + file + "': no such file or directory")
+	return false, errors.New(run + ": cannot access '" + file + "': no such file or directory")
 }

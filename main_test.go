@@ -32,7 +32,7 @@ func TestAddMainDir(t *testing.T) {
 
 func TestCheckFileNameDir(t *testing.T) {
 	file := "main.go"
-	_, err := pkg.CheckFileNameDir(file, CUR)
+	_, err := pkg.CheckFileNameDir(file, file, CUR)
 	if err != nil {
 		t.Error("Error: error in checking the directory name!")
 	}

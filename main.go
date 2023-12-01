@@ -13,6 +13,7 @@ func main() {
 		fmt.Println("Error getting current directory:", err)
 		return
 	}
+	runfile := os.Args[0]
 	args := os.Args[1:] // get the argument
 	flag := ""          // default
 	file := ""          // default
@@ -39,7 +40,7 @@ func main() {
 					dir.IsDir = true
 					DirList = append(DirList, dir)
 				} else { // check if it file or directory
-					check, err := pkg.CheckFileNameDir(file, currentDir)
+					check, err := pkg.CheckFileNameDir(runfile, file, currentDir)
 					if err != nil { // handle error
 						fmt.Println(err)
 						wrong = true
