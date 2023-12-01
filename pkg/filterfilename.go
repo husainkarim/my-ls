@@ -7,7 +7,9 @@ func FilterFileName(name string) string {
 	if name == "." || name == ".." {
 		return name
 	}
-	name = strings.TrimPrefix(name, ".")
+	if strings.HasPrefix(name, ".") {
+		return "." + FilterFileName(strings.TrimPrefix(name, "."))
+	}
 	list := strings.Split(name, ".")
 	return list[0]
 }

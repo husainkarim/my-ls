@@ -14,7 +14,7 @@ func GetFilesInfo(dir string, mainD FileInfo) []FileInfo {
 	var err error
 	files, err = os.ReadDir(dir)
 	if err != nil {
-		fmt.Println("Error reading directory:", err)
+		fmt.Println("./my-ls: cannot access '" + dir + "': no such file or directory")
 		os.Exit(1)
 	}
 	// split to remove main directory name

@@ -13,7 +13,6 @@ func main() {
 		fmt.Println("Error getting current directory:", err)
 		return
 	}
-	runfile := os.Args[0]
 	args := os.Args[1:] // get the argument
 	flag := ""          // default
 	file := ""          // default
@@ -24,8 +23,9 @@ func main() {
 		for _, s := range args {
 			if strings.HasPrefix(s, "-") && len(s) > 1 { // '-' mean the argument is flag
 				flag += s
-				if !pkg.CheckFlag(flag) { // check the flag is supported or not
-					fmt.Println("Error: the flag not supported!")
+				text, check := pkg.CheckFlag(flag)
+				if !check { // check the flag is supported or not
+					fmt.Println("./my-ls: invalid option '" + text + "'")
 					os.Exit(1)
 				}
 			} else { // get the file name
@@ -40,7 +40,7 @@ func main() {
 					dir.IsDir = true
 					DirList = append(DirList, dir)
 				} else { // check if it file or directory
-					check, err := pkg.CheckFileNameDir(runfile, file, currentDir)
+					check, err := pkg.CheckFileNameDir(file, currentDir)
 					if err != nil { // handle error
 						fmt.Println(err)
 						wrong = true

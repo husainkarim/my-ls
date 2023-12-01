@@ -2,18 +2,16 @@ package pkg
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"strings"
 )
 
 // check all file name givin in the argument
-func CheckFileNameDir(run, file, dir string) (bool, error) {
+func CheckFileNameDir(file, dir string) (bool, error) {
 	// read all file in the directory
 	files, err := os.ReadDir(dir)
 	if err != nil {
-		fmt.Println("Error reading directory:", err)
-		return false, err
+		return false, errors.New("./my-ls: cannot access '" + dir + "': no such file or directory")
 	}
 	filename := strings.TrimSuffix(file, "/")
 	for _, v := range files {
@@ -27,5 +25,5 @@ func CheckFileNameDir(run, file, dir string) (bool, error) {
 		}
 	}
 	// if file not found in the directory
-	return false, errors.New(run + ": cannot access '" + file + "': no such file or directory")
+	return false, errors.New("./my-ls: cannot access '" + file + "': no such file or directory")
 }
