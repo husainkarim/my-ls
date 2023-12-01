@@ -18,6 +18,7 @@ func main() {
 	file := ""          // default
 	var DirList []pkg.Dir
 	var dir pkg.Dir
+	wrong := false
 	if len(args) != 0 { // if length not 0 get the flag & file
 		for _, s := range args {
 			if strings.HasPrefix(s, "-") && len(s) > 1 { // '-' mean the argument is flag
@@ -41,6 +42,7 @@ func main() {
 					check, err := pkg.CheckFileNameDir(file, currentDir)
 					if err != nil { // handle error
 						fmt.Println(err)
+						wrong = true
 					} else {
 						if check { // if directory add it to root and empty the file
 							dir.Name = file
@@ -67,7 +69,7 @@ func main() {
 		dir.IsDir = false
 		DirList = append(DirList, dir)
 	}
-	if flag != "" && len(DirList) == 0 {
+	if flag != "" && len(DirList) == 0 && !wrong {
 		dir.Name = ""
 		dir.Path = currentDir
 		dir.File = ""

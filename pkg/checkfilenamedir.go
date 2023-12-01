@@ -27,5 +27,5 @@ func CheckFileNameDir(file, dir string) (bool, error) {
 		}
 	}
 	// if file not found in the directory
-	return false, errors.New("'" + file + "' no such file or directory")
+	return false, errors.New("./my-ls: cannot access '" + file + "': no such file or directory")
 }
