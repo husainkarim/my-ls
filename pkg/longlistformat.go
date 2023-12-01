@@ -7,17 +7,18 @@ import (
 
 func LongListFormat(list []FileInfo, file string, hidden, index bool) {
 	if file == "" { // to print the total check the number of files
-		count := len(list)
-		if !hidden { // if hidden false ignore hidden files
-			count = 0
-			for _, v := range list {
+		count := 0
+		for _, v := range list {
+			if !hidden { // if hidden false ignore hidden files
 				if !strings.HasPrefix(v.Name, ".") {
-					count++
+					count += v.Block
 				}
+			} else {
+				count += v.Block
 			}
 		}
 		// print total
-		fmt.Printf("total %d\n", (count * 4))
+		fmt.Printf("total %d\n", (count / 2))
 	}
 	// print files
 	for _, entry := range list {

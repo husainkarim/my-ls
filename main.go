@@ -60,8 +60,14 @@ func main() {
 				}
 			}
 		}
+	} else {
+		dir.Name = ""
+		dir.Path = currentDir
+		dir.File = ""
+		dir.IsDir = false
+		DirList = append(DirList, dir)
 	}
-	if len(DirList) == 0 {
+	if flag != "" && len(DirList) == 0 {
 		dir.Name = ""
 		dir.Path = currentDir
 		dir.File = ""

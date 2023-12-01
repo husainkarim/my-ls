@@ -16,6 +16,7 @@ type FileInfo struct {
 	Size    int64
 	ModTime time.Time
 	Index   int
+	Block   int
 }
 
 // struct to store the file and the path for it with the necessary information

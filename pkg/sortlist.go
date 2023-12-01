@@ -1,9 +1,12 @@
 package pkg
 
+// sort the file information list by name
 func SortList(list []FileInfo) {
 	i := 0
 	for len(list)-1 > i {
-		if list[i].Name > list[i+1].Name {
+		name0 := FilterFileName(list[i].Name)
+		name1 := FilterFileName(list[i+1].Name)
+		if name0 > name1 {
 			list[i], list[i+1] = list[i+1], list[i]
 			i = 0
 		} else {
