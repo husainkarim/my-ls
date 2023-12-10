@@ -30,12 +30,12 @@ func main() {
 				}
 			} else { // get the file name
 				file = s
-				if strings.HasPrefix(file, "/") { // if the file stat with '/' this mean new directory
+				if strings.HasPrefix(file, "/") { // if the file start with '/' this mean new directory
+					if !strings.HasSuffix(file, "/") {
+						file += "/"
+					}
 					dir.Name = file
 					dir.Path = strings.ReplaceAll(file, "//", "/")
-					if !strings.HasSuffix(currentDir, "/") {
-						currentDir += "/"
-					}
 					dir.File = ""
 					dir.IsDir = true
 					DirList = append(DirList, dir)
