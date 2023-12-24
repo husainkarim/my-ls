@@ -27,6 +27,7 @@ func MainRootDir(list []FileInfo) FileInfo {
 	for _, v := range list {
 		if v.Name == "." {
 			maindir = v
+			maindir.Name = ".."
 			break
 		}
 	}
