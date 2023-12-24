@@ -2,10 +2,21 @@ package pkg
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
 func PrintList(list []FileInfo, file string, hidden, index bool) {
+	if file != "" {
+		link, _ := os.Readlink(file)
+		if link != "" {
+			if strings.HasSuffix(link, "/") {
+				var empty FileInfo
+				list = GetFilesInfo(link, empty)
+				file = ""
+			}
+		}
+	}
 	for i, entry := range list {
 		if file != "" { // there is specific file
 			if file == entry.Name {
@@ -40,3 +51,13 @@ func PrintList(list []FileInfo, file string, hidden, index bool) {
 	}
 	fmt.Println()
 }
+
+// func GetFile(list []FileInfo, name string) (FileInfo, error) {
+// 	for _, v := range list {
+// 		if v.Name == name {
+// 			return v, nil
+// 		}
+// 	}
+// 	var empty FileInfo
+// 	return empty, errors.New("Error")
+// }

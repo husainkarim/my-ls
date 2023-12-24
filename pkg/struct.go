@@ -17,6 +17,7 @@ type FileInfo struct {
 	ModTime time.Time
 	Index   int
 	Block   int
+	Link    string
 }
 
 // struct to store the file and the path for it with the necessary information

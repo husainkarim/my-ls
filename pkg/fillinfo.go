@@ -3,7 +3,9 @@ package pkg
 import (
 	"fmt"
 	"io/fs"
+	"os"
 	"os/user"
+	"strings"
 	"syscall"
 )
 
@@ -21,7 +23,10 @@ func FillInfo(file fs.FileInfo, name string) (FileInfo, error) {
 	temp.ModTime = file.ModTime()                                                // time
 	temp.Index = int(file.Sys().(*syscall.Stat_t).Ino)                           // index
 	temp.Block = int(file.Sys().(*syscall.Stat_t).Blocks)                        // block size
-	if name != "" {                                                              // if there customize name
+	if strings.HasPrefix(temp.Mode.String(), "L") {
+		temp.Link, _ = os.Readlink(file.Name()) // get the link of the file
+	}
+	if name != "" { // if there customize name
 		temp.Name = name
 	} else { // no specific name
 		temp.Name = file.Name()
