@@ -51,13 +51,3 @@ func PrintList(list []FileInfo, file string, hidden, index bool) {
 	}
 	fmt.Println()
 }
-
-// func GetFile(list []FileInfo, name string) (FileInfo, error) {
-// 	for _, v := range list {
-// 		if v.Name == name {
-// 			return v, nil
-// 		}
-// 	}
-// 	var empty FileInfo
-// 	return empty, errors.New("Error")
-// }

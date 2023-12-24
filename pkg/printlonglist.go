@@ -26,7 +26,6 @@ func PrintLongList(entry FileInfo) {
 		} else {
 			link = "-> " + linke
 		}
-
 	}
 	// print the file with the correct format
 	fmt.Println(mode, links, user, group, size, time, name, link)
