@@ -10,12 +10,12 @@ import (
 // fill the information into the struct
 func FillInfo(file fs.FileInfo, name string) (FileInfo, error) {
 	var temp FileInfo
-	curr, _ := user.LookupId(fmt.Sprint(file.Sys().(*syscall.Stat_t).Uid))       // get user info
+	curUser, _ := user.LookupId(fmt.Sprint(file.Sys().(*syscall.Stat_t).Uid))    // get user info
 	group, _ := user.LookupGroupId(fmt.Sprint(file.Sys().(*syscall.Stat_t).Gid)) // get group info
 	temp.Dir = file.IsDir()                                                      // is directory
 	temp.Mode = file.Mode()                                                      // get mode
 	temp.Nlinks = file.Sys().(*syscall.Stat_t).Nlink                             // number of files
-	temp.User = curr.Username                                                    // user
+	temp.User = curUser.Username                                                 // user
 	temp.Group = group.Name                                                      // group
 	temp.Size = file.Sys().(*syscall.Stat_t).Size                                // size
 	temp.ModTime = file.ModTime()                                                // time
