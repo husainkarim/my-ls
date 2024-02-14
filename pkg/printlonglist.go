@@ -11,10 +11,10 @@ func PrintLongList(entry FileInfo) {
 	if len(mode) == 11 {
 		mode = mode[1:]
 	}
-	links := fmt.Sprintf("%3d", entry.Nlinks)
-	user := entry.User
-	group := entry.Group
-	size := fmt.Sprintf("%7d", entry.Size)
+	links := strings.Repeat(" ", S_link-len(fmt.Sprintf("%d", entry.Nlinks))) + fmt.Sprintf("%d", entry.Nlinks)
+	user := entry.User + strings.Repeat(" ", S_user-len(entry.User))
+	group := entry.Group + strings.Repeat(" ", S_group-len(entry.Group))
+	size := strings.Repeat(" ", S_size-len(fmt.Sprintf("%d", entry.Size))) + fmt.Sprintf("%d", entry.Size)
 	time := entry.ModTime.Format("Jan _2 15:04")
 	color := SelectColor(entry.Mode.String())
 	name := color + entry.Name + "\033[0m"

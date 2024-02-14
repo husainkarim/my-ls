@@ -6,11 +6,22 @@ import (
 )
 
 // struct to store all information need for the files
+
+var (
+	MaxWidth int = 150
+	S_link   int
+	S_user   int
+	S_group  int
+	S_size   int
+	S_name   int
+	S_index  int
+)
+
 type FileInfo struct {
 	Name    string
 	Dir     bool
 	Mode    fs.FileMode
-	Nlinks  uint64
+	Nlinks  int64
 	User    string
 	Group   string
 	Size    int64
