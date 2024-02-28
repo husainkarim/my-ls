@@ -18,14 +18,14 @@ func PrintLongList(entry FileInfo, dir string) {
 	user := entry.User + strings.Repeat(" ", S_user-len(entry.User))
 	group := entry.Group + strings.Repeat(" ", S_group-len(entry.Group))
 	size := strings.Repeat(" ", S_size-len(fmt.Sprintf("%d", entry.Size))) + fmt.Sprintf("%d", entry.Size)
-	if strings.HasPrefix(mode, "c") {
+	if fmt.Sprintf("%d", entry.Size) == "0" {
 		fileInfo, _ := os.Stat(dir + "/" + entry.Name)
-		if fileInfo.Mode()&os.ModeDevice == os.ModeDevice && fileInfo.Mode()&os.ModeCharDevice == os.ModeCharDevice {
+		if fileInfo.Mode()&os.ModeDevice == os.ModeDevice {
 			stat, ok := fileInfo.Sys().(*syscall.Stat_t) // Cast to syscall.Stat_t for device numbers
 			if !ok {
 				fmt.Println("Error accessing device information:", entry)
 			}
-			size = fmt.Sprintf("%d, %d", stat.Rdev>>8, stat.Rdev&0xff) // Extract major and minor numbers
+			size = strings.Repeat(" ", S_size-len(fmt.Sprintf("%d, %d", stat.Rdev>>8, stat.Rdev&0xff))) + fmt.Sprintf("%d, %d", stat.Rdev>>8, stat.Rdev&0xff) // Extract major and minor numbers
 		}
 	}
 	currenttime := time.Now()

@@ -29,8 +29,13 @@ func FillInfo(file fs.FileInfo, name, dir string) (FileInfo, error) {
 		S_group = len(temp.Group)
 	}
 	temp.Size = file.Sys().(*syscall.Stat_t).Size // size
-	if IntLen(temp.Size) > S_size {
-		S_size = IntLen(temp.Size)
+	Ssize := IntLen(temp.Size)
+	// fmt.Println(temp.Mode.String())
+	if strings.HasPrefix(temp.Mode.String()[1:], "c") {
+		Ssize = 8
+	}
+	if Ssize > S_size {
+		S_size = Ssize
 	}
 	temp.ModTime = file.ModTime()                      // time
 	temp.Index = int(file.Sys().(*syscall.Stat_t).Ino) // index
