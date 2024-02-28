@@ -5,9 +5,9 @@ import (
 	"strings"
 )
 
-func RecursiveList(list []FileInfo, dir, root, file string, time, reverse, hidden, index, longprint, recursive bool, f func(l []FileInfo, f string, h, i bool)) {
+func RecursiveList(list []FileInfo, dir, root, file string, time, reverse, hidden, index, longprint, recursive bool, f func(l []FileInfo, f, d string, h, i bool)) {
 	fmt.Printf("%s:\n", root)                         // print the root of file
-	f(list, file, hidden, index)                      // print the list depend on the formate requested
+	f(list, file, dir, hidden, index)                 // print the list depend on the formate requested
 	dircontain, dirnames := AddDir(list, dir, hidden) // get the list of directory in the root
 	maindir := MainRootDir(list)
 	for i := range dircontain {

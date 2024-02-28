@@ -17,6 +17,6 @@ func AddMainDir(dir, name string) (FileInfo, error) {
 		fmt.Println("Error getting stat for file:", dir)
 		os.Exit(1)
 	}
-	temp, _ := FillInfo(mainfile, name)
+	temp, _ := FillInfo(mainfile, name, dir)
 	return temp, nil
 }

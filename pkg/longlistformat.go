@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func LongListFormat(list []FileInfo, file string, hidden, index bool) {
+func LongListFormat(list []FileInfo, file, dir string, hidden, index bool) {
 	if file == "" { // to print the total check the number of files
 		count := 0
 		for _, v := range list {
@@ -24,7 +24,7 @@ func LongListFormat(list []FileInfo, file string, hidden, index bool) {
 	for _, entry := range list {
 		if file != "" { // if there is file name print that file only
 			if entry.Name == file {
-				PrintLongList(entry)
+				PrintLongList(entry, dir)
 			}
 		} else { // no specific file name print the files
 			if !hidden { // ignore hidden file
@@ -32,13 +32,13 @@ func LongListFormat(list []FileInfo, file string, hidden, index bool) {
 					if index {
 						fmt.Printf("%6d ", entry.Index)
 					}
-					PrintLongList(entry)
+					PrintLongList(entry, dir)
 				}
 			} else { // print all file
 				if index {
 					fmt.Printf("%6d ", entry.Index)
 				}
-				PrintLongList(entry)
+				PrintLongList(entry, dir)
 			}
 		}
 	}

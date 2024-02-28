@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func PrintList(list []FileInfo, file string, hidden, index bool) {
+func PrintList(list []FileInfo, file, dir string, hidden, index bool) {
 	if file != "" {
 		link, _ := os.Readlink(file)
 		if link != "" {

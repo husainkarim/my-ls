@@ -14,6 +14,9 @@ func CheckFileNameDir(file, dir string) (bool, error) {
 		return false, errors.New("./my-ls: cannot access '" + dir + "': no such file or directory")
 	}
 	filename := strings.TrimSuffix(file, "/")
+	for strings.HasSuffix(filename, "/") {
+		filename = strings.TrimSuffix(filename, "/")
+	}
 	for _, v := range files {
 		name := v.Name()
 		if filename == name { // if name == givin file name

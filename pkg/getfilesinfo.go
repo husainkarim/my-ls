@@ -34,8 +34,8 @@ func GetFilesInfo(dir string, mainD FileInfo) []FileInfo {
 			os.Exit(1)
 		}
 		// get the stat for the file to use it in the FillInfo function
-		temp, _ := FillInfo(file, "") // add all element
-		List = append(List, temp)     // add it to the list
+		temp, _ := FillInfo(file, "", dir) // add all element
+		List = append(List, temp)          // add it to the list
 	}
 	return List
 }

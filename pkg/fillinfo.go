@@ -10,7 +10,7 @@ import (
 )
 
 // fill the information into the struct
-func FillInfo(file fs.FileInfo, name string) (FileInfo, error) {
+func FillInfo(file fs.FileInfo, name, dir string) (FileInfo, error) {
 	var temp FileInfo
 	curUser, _ := user.LookupId(fmt.Sprint(file.Sys().(*syscall.Stat_t).Uid))    // get user info
 	group, _ := user.LookupGroupId(fmt.Sprint(file.Sys().(*syscall.Stat_t).Gid)) // get group info
@@ -37,10 +37,6 @@ func FillInfo(file fs.FileInfo, name string) (FileInfo, error) {
 	if IntLen(int64(temp.Index)) > S_index {
 		S_index = IntLen(int64(temp.Index))
 	}
-	temp.Block = int(file.Sys().(*syscall.Stat_t).Blocks) // block size
-	if strings.HasPrefix(temp.Mode.String(), "L") {
-		temp.Link, _ = os.Readlink(file.Name()) // get the link of the file
-	}
 	if name != "" { // if there customize name
 		temp.Name = name
 	} else { // no specific name
@@ -48,6 +44,16 @@ func FillInfo(file fs.FileInfo, name string) (FileInfo, error) {
 	}
 	if len(temp.Name) > S_name {
 		S_name = len(temp.Name)
+	}
+	temp.Block = int(file.Sys().(*syscall.Stat_t).Blocks) // block size
+	if strings.HasPrefix(temp.Mode.String(), "L") {
+		currentDir, _ := os.Getwd()
+		if dir != currentDir {
+			temp.Link, _ = os.Readlink(dir + file.Name()) // get the link of the file
+		} else {
+			temp.Link, _ = os.Readlink(file.Name())
+		}
+
 	}
 	return temp, nil
 }

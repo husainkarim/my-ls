@@ -48,7 +48,7 @@ func TestCheckFlag(t *testing.T) {
 func TestFillInfo(t *testing.T) {
 	maindir, _ := os.Open(CUR)
 	mainfile, _ := maindir.Stat()
-	_, err := pkg.FillInfo(mainfile, "")
+	_, err := pkg.FillInfo(mainfile, "", "")
 	if err != nil {
 		t.Error("Error: error in generating File information!")
 	}
