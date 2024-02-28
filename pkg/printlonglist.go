@@ -3,6 +3,7 @@ package pkg
 import (
 	"fmt"
 	"strings"
+	"time"
 )
 
 func PrintLongList(entry FileInfo) {
@@ -15,7 +16,12 @@ func PrintLongList(entry FileInfo) {
 	user := entry.User + strings.Repeat(" ", S_user-len(entry.User))
 	group := entry.Group + strings.Repeat(" ", S_group-len(entry.Group))
 	size := strings.Repeat(" ", S_size-len(fmt.Sprintf("%d", entry.Size))) + fmt.Sprintf("%d", entry.Size)
+	currenttime := time.Now()
+	sixMonthsAgo := currenttime.AddDate(0, -6, 0)
 	time := entry.ModTime.Format("Jan _2 15:04")
+	if entry.ModTime.Before(sixMonthsAgo) {
+		time = entry.ModTime.Format("Jan _2  2006")
+	}
 	color := SelectColor(entry.Mode.String())
 	name := color + entry.Name + "\033[0m"
 	linke := entry.Link
