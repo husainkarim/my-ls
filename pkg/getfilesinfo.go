@@ -18,6 +18,9 @@ func GetFilesInfo(dir string, mainD FileInfo) []FileInfo {
 		os.Exit(1)
 	}
 	// split to remove main directory name
+	if !strings.HasSuffix(dir, "/") {
+		dir += "/"
+	}
 	l := strings.Split(dir, "/")
 	// merge the name to get the name
 	mdir := strings.Join(l[:len(l)-2], "/") + "/"
