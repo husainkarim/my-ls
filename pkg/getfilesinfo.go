@@ -20,7 +20,7 @@ func GetFilesInfo(dir string, mainD FileInfo) []FileInfo {
 	// split to remove main directory name
 	l := strings.Split(dir, "/")
 	// merge the name to get the name
-	mdir := strings.Join(l[:len(l)-1], "/")
+	mdir := strings.Join(l[:len(l)-2], "/") + "/"
 	currdir, _ := AddMainDir(dir, ".") // main root
 	maindir := mainD
 	if mainD.Name == "" {
