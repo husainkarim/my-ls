@@ -1,3 +1,9 @@
 my-ls
 dir
 file
+symboliclinktofolder
+test1
+test2
+test3
+.hiddenfile
+symboliclinktofile

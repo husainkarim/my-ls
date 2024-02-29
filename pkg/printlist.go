@@ -31,6 +31,12 @@ func PrintList(list []FileInfo, file, dir string, hidden, index bool) {
 		}
 		count = len(nlist)
 	}
+	S_name = 0
+	for _, v := range nlist {
+		if len(v.Name) > S_name {
+			S_name = len(v.Name)
+		}
+	}
 	size := int(math.Ceil(float64(MaxWidth) / float64(S_name)))
 	lines := int(math.Ceil(float64(count) / float64(size)))
 	for i := 0; i < lines; i++ {
