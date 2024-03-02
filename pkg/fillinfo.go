@@ -32,7 +32,7 @@ func FillInfo(file fs.FileInfo, name, dir string) (FileInfo, error) {
 	Ssize := IntLen(temp.Size)
 	// fmt.Println(temp.Mode.String())
 	if strings.HasPrefix(temp.Mode.String()[1:], "c") {
-		Ssize = 8
+		Ssize = 10
 	}
 	if Ssize > S_size {
 		S_size = Ssize

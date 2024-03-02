@@ -8,6 +8,8 @@ func SortList(list []FileInfo) {
 	for len(list)-1 > i {
 		name0 := FilterFileName(list[i].Name)
 		name1 := FilterFileName(list[i+1].Name)
+		name0 = strings.TrimPrefix(name0, ".")
+		name1 = strings.TrimPrefix(name1, ".")
 		if strings.ToLower(name0) > strings.ToLower(name1) {
 			list[i], list[i+1] = list[i+1], list[i]
 			i = 0

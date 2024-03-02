@@ -8,7 +8,7 @@ import (
 // struct to store all information need for the files
 
 var (
-	MaxWidth int = 85
+	MaxWidth int = 150
 	S_link   int
 	S_user   int
 	S_group  int

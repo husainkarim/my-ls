@@ -32,7 +32,8 @@ func TestAddMainDir(t *testing.T) {
 
 func TestCheckFileNameDir(t *testing.T) {
 	file := "main.go"
-	_, err := pkg.CheckFileNameDir(file, CUR)
+
+	_, _, err := pkg.CheckFileNameDir(file, CUR)
 	if err != nil {
 		t.Error("Error: error in checking the directory name!")
 	}
@@ -69,5 +70,12 @@ func TestSortList(t *testing.T) {
 	pkg.SortList(LIST)
 	if LIST[0] != temp[0] {
 		t.Error("Error: in sorting!")
+	}
+}
+
+func TestRemoveExtraSlashes(t *testing.T) {
+	path := "my-ls///pkg///"
+	if pkg.RemoveExtraSlashes(path) != "my-ls/pkg/" {
+		t.Error("Error: error in removing extra slashes!")
 	}
 }

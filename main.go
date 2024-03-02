@@ -40,24 +40,32 @@ func main() {
 					dir.IsDir = true
 					DirList = append(DirList, dir)
 				} else { // check if it file or directory
-					check, err := pkg.CheckFileNameDir(file, currentDir)
+					isdir, isfile, err := pkg.CheckFileNameDir(file, currentDir)
 					if err != nil { // handle error
 						fmt.Println(err)
 						wrong = true
 					} else {
-						if check { // if directory add it to root and empty the file
+						if isdir { // if directory add it to root and empty the file
 							dir.Name = file
 							dir.Path = currentDir + "/" + file
 							dir.File = ""
 							dir.IsDir = true
 							DirList = append(DirList, dir)
 						}
-						if !check {
-							dir.Name = ""
-							dir.Path = currentDir
-							dir.File = file
-							dir.IsDir = false
-							DirList = append(DirList, dir)
+						if isfile {
+							if strings.Contains(file, "/") { // if file contain '/' this mean it is in another directory
+								dir.Name = strings.Split(file, "/")[0]
+								dir.Path = currentDir + "/" + strings.Split(file, "/")[:len(strings.Split(file, "/"))-1][0]
+								dir.File = strings.Split(file, "/")[len(strings.Split(file, "/"))-1]
+								dir.IsDir = false
+								DirList = append(DirList, dir)
+							} else { // if file is in the current directory
+								dir.Name = ""
+								dir.Path = currentDir
+								dir.File = file
+								dir.IsDir = false
+								DirList = append(DirList, dir)
+							}
 						}
 					}
 				}
@@ -114,9 +122,6 @@ func main() {
 		var empty pkg.FileInfo
 		var listOfFile []pkg.FileInfo = pkg.GetFilesInfo(path, empty)
 		pkg.SortList(listOfFile)
-		if len(sortedList) != 1 && v.IsDir {
-			fmt.Println(v.Name + ":")
-		}
 		// put all the variable in the apply function
 		pkg.Apply(listOfFile, path, root, file, time, reverse, hidden, index, longprint, recursive)
 		if c != len(sortedList)-1 {
