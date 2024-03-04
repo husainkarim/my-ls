@@ -18,7 +18,7 @@ func SelectColor(mode string) string {
 	if strings.HasPrefix(mode, "c") { // yellow
 		return "\033[1;33m"
 	}
-	if mode == "-rwxr-xr-x" { // Green
+	if mode == "-rwxrwxr-x" { // Green
 		return "\033[1;32m"
 	}
 	if strings.HasPrefix(mode, "u") { // white with red highlight
