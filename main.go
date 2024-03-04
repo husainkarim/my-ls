@@ -123,6 +123,9 @@ func main() {
 		var listOfFile []pkg.FileInfo = pkg.GetFilesInfo(path, empty)
 		pkg.SortList(listOfFile)
 		// put all the variable in the apply function
+		if !recursive && v.IsDir && len(sortedList) > 1 {
+			fmt.Println(v.Name + ":")
+		}
 		pkg.Apply(listOfFile, path, root, file, time, reverse, hidden, index, longprint, recursive)
 		if c != len(sortedList)-1 {
 			fmt.Println()
